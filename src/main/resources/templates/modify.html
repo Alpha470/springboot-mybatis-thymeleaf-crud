@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>编辑</title>
+    </head>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modify.js}"></script>
+    <body>
+        <div style="margin:0px auto; width:500px">
+            <form action="/updateArticle" method="post">
+                <input name="id" type="hidden" th:value="${article.id}"/>
+                <table>
+                    <tr>
+                        <td>
+                            <label for="title">标题: </label>
+                        </td>
+                        <td style="width: 300px;">
+                            <input style="width: 300px;" id="title" name="title" th:value="${article.title}"/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="summary">概述:</label>
+                        </td>
+                        <td style="width: 300px;height: 30px;">
+                            <input style="width: 300px;height: 30px;" id="summary" name="summary" th:value="${article.summary}"/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="mdContent">内容:</label>
+                        </td>
+                        <td style="width: 300px;height: 30px;">
+                            <input style="width: 300px;height: 80px;" id="mdContent" name="mdContent" th:value="${article.mdContent}"/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="state">状态: </label>
+                        </td>
+                        <td>
+                            <select id="state" name="state">
+                                <option value="1" th:selected="${article.state}==1">发布</option>
+                                <option value="0" th:selected="${article.state}==0">未发布</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="2">
+                            <button type="button" id="sb">提交</button>
+                            <button type="button" id="back">返回</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

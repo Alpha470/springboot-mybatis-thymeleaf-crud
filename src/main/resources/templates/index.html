@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>表单</title>
+    </head>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+    <body>
+        <div align="center">
+            <form action="#" th:action="@{/listArticle}" method="post">
+                <label for="title">全表查询：</label>
+                <input id="title" name="title" th:value="${title}">
+                <button id="search-btn" name="search-btn">搜索</button>
+            </form>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a th:href="@{/add}">添加内容</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/listArticle}">刷新全部数据</a>
+            <table width="100%" border="1">
+
+                <tr align="center">
+                    <td width="20%">标题</td>
+                    <td width="20%">概述</td>
+                    <td width="30%">内容</td>
+                    <td width="10%">状态</td>
+                    <td colspan="2" width="20%">操作</td>
+                </tr>
+                <tr align="center" th:each="list: ${pages.list}">
+                    <td><a th:href="@{/getArticle(id=${list.id})}">[[${list.title}]]</a></td>
+                    <td th:text="${list.summary}"></td>
+                    <td th:text="${list.mdContent}"></td>
+                    <td th:text="${list.state}==1?'发布':'未发布'"></td>
+                    <td><a th:href="@{/findArticle(id=${list.id})}">编辑</a></td>
+                    <td><a th:href="@{/deleteArticle(id=${list.id})}">删除</a></td>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <a th:unless="${pages.isFirstPage}"
+               th:href="@{/listArticle(title=${title})}">首 页</a>
+            <a th:unless="${pages.isFirstPage}"
+               th:href="@{/listArticle(start=${pages.isHasPreviousPage()}?${pages.getPrePage()}:1, title=${title})}">上一页</a>
+            <a th:unless="${pages.isLastPage}"
+               th:href="@{/listArticle(start=${pages.isHasNextPage()}?${pages.getNextPage()}:${pages.getPages()}, title=${title})}">下一页</a>
+            <a th:unless="${pages.isLastPage}"
+               th:href="@{/listArticle(start=${pages.getPages()}, title=${title})}">末 页</a>
+        </div>
+
+        <script type="text/javascript">
+
+        </script>
+    </body>
+</html>
